@@ -14,28 +14,46 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout repository
       - name: Checkout Repository
         uses: actions/checkout@v7
 
+      # Step 2: Setup Python
       - name: Set Up Python 3.11
         uses: actions/setup-python@v7
         with:
           python-version: "3.11"
 
+      # Step 3: Install dependencies
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
 
+      # Step 4: Execute automated tests
       - name: Run Automated Pytest Tests
         run: |
           mkdir -p reports
           python -m pytest -v tests --junitxml=reports/junit.xml
 
+      # Step 5: Send actual results to local receiver
+      # This runs even when tests fail.
+      # Only pushes can access the receiver secrets.
+      - name: Send Test Report to Local Receiver
+        if: ${{ always() && github.event_name == 'push' }}
+        env:
+          REPORT_RECEIVER_URL: ${{ secrets.REPORT_RECEIVER_URL }}
+          REPORT_RECEIVER_TOKEN: ${{ secrets.REPORT_RECEIVER_TOKEN }}
+        run: |
+          python receiver/send_report.py
+
+      # Step 6: Upload test result artifacts
       - name: Upload Test Results
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: pytest-test-results
-          path: reports/junit.xml
+          path: |
+            reports/junit.xml
+            reports/ci-test-report.json
           if-no-files-found: warn

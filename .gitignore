@@ -19,3 +19,5 @@ reports/*.json
 Thumbs.dbs
 # Local Database
 instance/
+# Private receiver authentication token
+.report-token
