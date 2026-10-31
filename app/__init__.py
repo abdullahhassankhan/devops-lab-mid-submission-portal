@@ -68,7 +68,7 @@ def create_app(test_config=None):
 
             # Required fields validation
             for key, label in fields.items():
-                if not values[key] and key != "registration_number":
+                if not values[key] :
                     errors.append(f"{label} is required.")
 
             # URL validation
