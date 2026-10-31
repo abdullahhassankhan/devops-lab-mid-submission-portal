@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Assignment Submission Portal</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>Assignment Submission Portal</h1>
+        <p>DevOps Lab Mid | Student Assignment Management</p>
+    </header>
+
+    <section class="card">
+        <h2>Submit Your Assignment</h2>
+
+        {% if saved %}
+        <div class="success">
+            Assignment submitted successfully!
+        </div>
+        {% endif %}
+
+        {% if errors %}
+        <div class="error">
+            {% for error in errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <form method="POST" action="/">
+
+            <label for="student_name">Student Name</label>
+            <input type="text" id="student_name"
+                   name="student_name"
+                   placeholder="Enter your full name"
+                   value="{{ values.student_name }}">
+
+            <label for="registration_number">Registration Number</label>
+            <input type="text" id="registration_number"
+                   name="registration_number"
+                   placeholder="e.g. FA23-BAI-006"
+                   value="{{ values.registration_number }}">
+
+            <label for="assignment_title">Assignment Title</label>
+            <input type="text" id="assignment_title"
+                   name="assignment_title"
+                   placeholder="Enter assignment title"
+                   value="{{ values.assignment_title }}">
+
+            <label for="submission_url">Submission URL</label>
+            <input type="text" id="submission_url"
+                   name="submission_url" inputmode="url"
+                   placeholder="https://github.com/..."
+                   value="{{ values.submission_url }}">
+
+            <button type="submit">Submit Assignment</button>
+
+        </form>
+    </section>
+
+    <section class="card">
+        <h2>Saved Submissions ({{ submissions|length }})</h2>
+
+        {% if submissions %}
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student</th>
+                        <th>Registration</th>
+                        <th>Assignment</th>
+                        <th>Submission</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in submissions %}
+                    <tr>
+                        <td>{{ item.student_name }}</td>
+                        <td>{{ item.registration_number }}</td>
+                        <td>{{ item.assignment_title }}</td>
+                        <td>
+                            <a href="{{ item.submission_url }}"
+                               target="_blank"
+                               rel="noopener noreferrer">
+                                View Submission
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+            <p class="empty">No assignments submitted yet.</p>
+        {% endif %}
+
+    </section>
+
+</div>
+
+</body>
+</html>
