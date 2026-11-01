@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+    <title>Assignment Submission Portal | DevOps Lab</title>
+    
+</head>
+
+<body>
+
+    <main class="container">
+
+        <header>
+            <h1>Assignment Submission Portal</h1>
+            <p>DevOps Lab Mid — GitHub Pages Demo</p>
+        </header>
+
+        <section class="card">
+
+            <h2>Submit Your Assignment</h2>
+
+            <p>
+                Enter your assignment details below.
+            </p>
+
+            <div id="message" role="status"
+                 aria-live="polite"></div>
+
+           <form id="submission-form" novalidate>
+
+                <label for="student_name">
+                    Student Name
+                </label>
+
+                <input
+                    type="text"
+                    id="student_name"
+                    name="student_name"
+                    placeholder="Enter your full name"
+                    required
+                >
+
+                <label for="registration_number">
+                    Registration Number
+                </label>
+
+                <input
+                    type="text"
+                    id="registration_number"
+                    name="registration_number"
+                    placeholder="e.g. FA23-BAI-062"
+                    required
+                >
+
+                <label for="assignment_title">
+                    Assignment Title
+                </label>
+
+                <input
+                    type="text"
+                    id="assignment_title"
+                    name="assignment_title"
+                    placeholder="Enter assignment title"
+                    required
+                >
+
+                <label for="submission_url">
+                    Submission URL
+                </label>
+
+                <input
+                    type="url"
+                    id="submission_url"
+                    name="submission_url"
+                    placeholder="https://github.com/..."
+                    required
+                >
+
+                <button type="submit">
+                    Submit Assignment
+                </button>
+
+            </form>
+
+        </section>
+
+        <section class="card">
+
+            <h2>Saved Submissions</h2>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Student</th>
+                            <th>Registration</th>
+                            <th>Assignment</th>
+                            <th>Submission</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="submission-list">
+                    </tbody>
+
+                </table>
+            </div>
+
+            <p id="empty-state">
+                No assignments submitted yet.
+            </p>
+
+        </section>
+
+        <footer>
+            <p>
+                DevOps Lab Mid | GitHub Pages Demo
+            </p>
+        </footer>
+
+    </main>
+<script src="script.js"></script>
+</body>
+</html>

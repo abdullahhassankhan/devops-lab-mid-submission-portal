@@ -1,0 +1,235 @@
+
+/* DevOps Lab Mid - GitHub Pages Demo */
+
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --background: #f1f5f9;
+    --text: #1e293b;
+    --muted: #64748b;
+    --border: #e2e8f0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: var(--background);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1050px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* Header */
+
+header {
+    text-align: center;
+    padding: 38px 24px;
+    margin-bottom: 30px;
+    background: linear-gradient(135deg, #1e40af, #3b82f6);
+    color: white;
+    border-radius: 14px;
+    box-shadow: 0 5px 20px rgba(37, 99, 235, 0.15);
+}
+
+header h1 {
+    font-size: 32px;
+    margin: 0 0 10px;
+}
+
+header p {
+    margin: 0;
+    opacity: 0.9;
+}
+
+/* Cards */
+
+.card {
+    background: white;
+    padding: 32px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+}
+
+.card h2 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    color: #1e3a8a;
+}
+
+.card > p {
+    color: var(--muted);
+}
+
+/* Submission Form */
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: 600;
+    margin-top: 18px;
+    margin-bottom: 7px;
+}
+
+input {
+    width: 100%;
+    padding: 13px 14px;
+    font-size: 15px;
+    font-family: inherit;
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+    background: #fff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+input::placeholder {
+    color: #94a3b8;
+}
+
+/* Submit Button */
+
+button {
+    margin-top: 26px;
+    padding: 15px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 7px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+button:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+button:focus-visible {
+    outline: 3px solid #93c5fd;
+    outline-offset: 3px;
+}
+
+/* Feedback Messages */
+
+#message {
+    border-radius: 7px;
+}
+
+#message:not(:empty) {
+    padding: 14px;
+    margin: 15px 0;
+}
+
+#message.success {
+    background: #dcfce7;
+    color: #166534;
+    border: 1px solid #86efac;
+}
+
+#message.error {
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fca5a5;
+}
+
+/* Submissions Table */
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 18px;
+}
+
+thead {
+    background: #eff6ff;
+}
+
+th {
+    color: #1e40af;
+    font-weight: 600;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+
+tbody tr:hover {
+    background: #f8fafc;
+}
+
+a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+#empty-state {
+    text-align: center;
+    padding: 20px;
+    color: var(--muted);
+}
+
+/* Footer */
+
+footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 14px;
+    padding: 15px 0 35px;
+}
+
+/* Responsive Design */
+
+@media (max-width: 600px) {
+    .container {
+        margin: 15px auto;
+        padding: 0 12px;
+    }
+
+    header {
+        padding: 28px 16px;
+    }
+
+    header h1 {
+        font-size: 25px;
+    }
+
+    .card {
+        padding: 20px;
+    }
+
+    th, td {
+        padding: 10px;
+        font-size: 13px;
+    }
+}
