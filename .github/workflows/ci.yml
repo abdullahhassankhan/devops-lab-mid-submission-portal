@@ -18,7 +18,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v7
 
-      # Step 2: Setup Python
+      # Step 2: Set up Python
       - name: Set Up Python 3.11
         uses: actions/setup-python@v7
         with:
@@ -37,8 +37,7 @@ jobs:
           python -m pytest -v tests --junitxml=reports/junit.xml
 
       # Step 5: Send actual results to local receiver
-      # This runs even when tests fail.
-      # Only pushes can access the receiver secrets.
+      # Run even if tests fail, on push events only.
       - name: Send Test Report to Local Receiver
         if: ${{ always() && github.event_name == 'push' }}
         env:
@@ -58,12 +57,23 @@ jobs:
             reports/ci-test-report.json
           if-no-files-found: warn
 
-  # GitHub Pages Bonus Deployment
-  # Deploy only after successful tests on main.
+      # Step 7: Automatic Email Reporting
+      # Send email for passing and failing test runs.
+      - name: Send Automated Email Report
+        if: ${{ always() && github.event_name == 'push' }}
+        continue-on-error: true
+        env:
+          SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          REPORT_EMAIL: ${{ secrets.REPORT_EMAIL }}
+        run: |
+          python receiver/send_email.py
 
+  # GitHub Pages Bonus Deployment
+  # Deploy only when automated-tests succeeds
+  # on a push to the main branch.
   deploy-pages:
     name: Deploy Static Portal to GitHub Pages
-
     needs: automated-tests
 
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
@@ -84,23 +94,28 @@ jobs:
       cancel-in-progress: false
 
     steps:
+      # Step 1: Checkout repository
       - name: Checkout Repository
         uses: actions/checkout@v7
 
+      # Step 2: Verify static website files
       - name: Verify Static Website Files
         run: |
           test -f site/index.html
           test -f site/style.css
           test -f site/script.js
 
+      # Step 3: Configure GitHub Pages
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
+      # Step 4: Upload website artifact
       - name: Upload GitHub Pages Artifact
         uses: actions/upload-pages-artifact@v4
         with:
           path: site/
 
+      # Step 5: Deploy website
       - name: Deploy Website
         id: deployment
         uses: actions/deploy-pages@v4
